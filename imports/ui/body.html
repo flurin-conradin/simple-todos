@@ -5,11 +5,20 @@
         </header>
 
         <ul>
-            {{#each tasks}}
+            {{#each fTasks}}
             {{> task}}
             {{/each}}
         </ul>
     </div>
+    <form>
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user_name" value={{newTodo}}>
+        </div>
+        <div class="button">
+            <button type="submit">Add todo</button>
+        </div>
+      </form>
 </body>
 
 <template name="task">
