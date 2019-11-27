@@ -21,3 +21,25 @@ Template.hello.events({
     instance.counter.set(instance.counter.get() + 1);
   },
 });
+
+// 
+// TEMPLATE INFO
+//
+
+Template.info.onCreated(function onCreated() {
+  // init Class with flurinClass
+  this.className = new ReactiveVar("");
+});
+
+Template.info.helpers({
+  myClass() {
+    return Template.instance().className.get();
+  },
+});
+
+Template.info.events({
+  'click h2'(event, instance) {
+    console.log("h2 was clicked");
+    instance.className.set("flurinClass");
+  },
+});
