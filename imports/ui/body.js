@@ -16,12 +16,8 @@ Template.body.helpers({
 
 
 Template.body.onCreated(function onCreated() {
-    this.fTasks = new ReactiveVar([
-        { text: 'This is task 7' },
-        { text: 'This is task 8' },
-        { text: 'This is task 9' },
-    ]);
-    this.newTodo = new ReactiveVar("Thelk");
+    this.fTasks = new ReactiveVar([]);
+    this.newTodo = new ReactiveVar("");
 });
 
 Template.body.helpers({
@@ -34,14 +30,25 @@ Template.body.helpers({
 });
 
 Template.body.events({
-    'click button'(event, instance) {
+    'click .addTodo'(event, instance) {
         event.preventDefault();
         let temp = Template.instance().fTasks.get();
-        temp.push({ text: instance.newTodo.get() });
+        temp.push({ text: instance.newTodo.get(), id: temp.length+1 });
+        // let fTasks = temp.map((v, i)=>({text: v.text, id: i}))
         instance.fTasks.set(temp);
         instance.newTodo.set("");
     },
+    
     'keyup input'(event, instance) {
-        instance.newTodo.set(event.target.value)
-    }
+        instance.newTodo.set(event.target.value);
+    },
+    
+    'click .removeTodo'(event, instance) {
+        console.log("remove item");
+        event.preventDefault();
+        // target = int(event.target.value);
+        let temp = Template.instance().fTasks.get().filter((v)=> v.id != event.target.value);
+        // let fTasks = temp.map((v, i)=>({text: v.text, id: i}))
+        instance.fTasks.set(temp ? temp : []);
+    },
 });
