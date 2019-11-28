@@ -1,6 +1,12 @@
 /* .flurinClass {
   background-color: blueviolet;
 } */
+
+.flurin-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
 body {
   font-family: sans-serif;
   background-color: #315481;
