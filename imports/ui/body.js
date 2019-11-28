@@ -22,11 +22,9 @@ Template.body.helpers({
     hideCompleted() {
         return Template.instance().store.get('hideCompleted');
     },
-    completedTasks() {
-        let total = Tasks.find({}).count();
-        let completed = Tasks.find({checked: {$eq: true}}).count();
-        return `${completed}/${total}`;
-    }
+    incompleteCount() {
+        return Tasks.find({ checked: { $ne: true } }).count();
+    },
 });
 
 Template.body.events({
