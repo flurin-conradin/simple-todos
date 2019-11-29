@@ -37,11 +37,7 @@ Template.body.events({
         const text = target.text.value;
 
         // Insert a task into the collection
-        Tasks.insert({
-            text,
-            createdAt: new Date(), // current time
-            checked: false
-        });
+        Meteor.call('tasks.insert', text);
 
         // Clear form
         target.text.value = '';
