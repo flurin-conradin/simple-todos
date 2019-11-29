@@ -10,6 +10,9 @@ Template.task.events({
     },
     'click .toggle-checked'(event) {
         Meteor.call('tasks.toggleChecked', this._id, !this.checked, this.owner);
+    },
+    'click .toggle-private'(event) {
+        Meteor.call('tasks.togglePrivate', this._id);
     }
 });
 
