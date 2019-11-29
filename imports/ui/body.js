@@ -5,7 +5,8 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Tasks } from '../api/tasks.js';
 import { Template } from 'meteor/templating';
 
-Template.body.onCreated(function bodyOnCreated() {
+Template.body.onCreated(function() {
+    Meteor.subscribe('tasks');
     this.state = new ReactiveDict();
 });
 
@@ -33,14 +34,15 @@ Template.body.events({
         event.preventDefault();
 
         // Get value from form element
-        const target = event.target;
-        const text = target.text.value;
+        const text = event.target.text.value;
+        const private = event.target.private_task.checked;
 
         // Insert a task into the collection
-        Meteor.call('tasks.insert', text);
+        Meteor.call('tasks.insert', text, private);
 
         // Clear form
-        target.text.value = '';
+        event.target.text.value = '';
+        event.target.private_task.checked = false;
     },
     'change .hide-completed input'(event, instance) {
         instance.state.set('hideCompleted', event.target.checked);

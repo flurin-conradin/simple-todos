@@ -4,9 +4,21 @@ import { check } from 'meteor/check';
 
 export const Tasks = new Mongo.Collection('tasks');
 
+if (Meteor.isServer) {
+  // This code only runs on the server
+  Meteor.publish('tasks', function tasksPublication() {
+    return Tasks.find({$or: [
+      {private:{$ne: true}},
+      {owner: Meteor.userId()}
+    ]})
+  });
+}
+
+
 Meteor.methods({
-    'tasks.insert'(text) {
+    'tasks.insert'(text, private) {
         check(text, String);
+        check(private, Boolean);
      
         // Make sure the user is logged in before inserting a task
         if (! Meteor.userId()) {
@@ -19,16 +31,23 @@ Meteor.methods({
           owner: Meteor.userId(),
           checked: false,
           username: Meteor.user().username,
+          private: private
         });
     },
-    'tasks.remove'(id) {
+    'tasks.remove'(id, owner) {
         check(id, String);
+        check(owner, String);
+        if (Meteor.userId() != owner) {
+          throw new Meteor.Error('not-authorized');
+        }
         Tasks.remove(id);
     },
-    'tasks.toggleChecked'(id, checked) {
+    'tasks.toggleChecked'(id, checked, owner) {
         check(id, String);
         check(checked, Boolean);
-
+        if (Meteor.userId() != owner) {
+          throw new Meteor.Error('not-authorized');
+        }
         Tasks.update(id, {$set: {"checked": checked}})
     }
 })

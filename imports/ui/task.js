@@ -1,15 +1,20 @@
 import './task.html';
 
 import { Meteor } from 'meteor/meteor';
-import { Tasks } from '../api/tasks.js';
 import { Template } from 'meteor/templating';
 
 Template.task.events({
     'click .delete'(event) {
         event.preventDefault();
-        Meteor.call('tasks.remove', this._id);
+        Meteor.call('tasks.remove', this._id, this.owner);
     },
     'click .toggle-checked'(event) {
-        Meteor.call('tasks.toggleChecked', this._id, !this.checked );
+        Meteor.call('tasks.toggleChecked', this._id, !this.checked, this.owner);
     }
 });
+
+Template.task.helpers({
+    isOwner() {
+        return Meteor.userId() === this.owner;
+    }
+})

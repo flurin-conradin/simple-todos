@@ -10,6 +10,10 @@
             {{#if currentUser}}
             <form class="new-task">
                 <input type="text" name="text" placeholder="Type to add new tasks" />
+                <label>
+                    <input type="checkbox" name="private_task" />
+                    Private task
+                </label>
             </form>
             {{/if}}
         </header>
