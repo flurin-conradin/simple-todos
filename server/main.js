@@ -1,4 +1,5 @@
 import '../imports/api/tasks.js';
+import '../imports/api/stations.js';
 
 import { Meteor } from 'meteor/meteor';
 
