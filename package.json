@@ -14,7 +14,8 @@
     "google-map-react": "^1.1.5",
     "meteor-node-stubs": "^1.0.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "simpl-schema": "^1.5.6"
   },
   "meteor": {
     "mainModule": {

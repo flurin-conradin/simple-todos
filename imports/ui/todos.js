@@ -6,9 +6,9 @@ import { Tasks } from '../api/tasks.js';
 import { Template } from 'meteor/templating';
 
 Template.todos.onCreated(function() {
-    console.log("I was created");
     Meteor.subscribe('tasks');
     this.state = new ReactiveDict();
+    this.error = new ReactiveVar("");
 });
 
 
@@ -27,10 +27,13 @@ Template.todos.helpers({
     incompleteCount() {
         return Tasks.find({ checked: { $ne: true } }).count();
     },
+    error() {
+        return Template.instance().error.get();
+    }
 });
 
 Template.todos.events({
-    'submit .new-task'(event) {
+    'submit .new-task'(event, instance) {
         // Prevent default browser form submit
         event.preventDefault();
 
@@ -38,7 +41,11 @@ Template.todos.events({
         const text = event.target.text.value;
 
         // Insert a task into the collection
-        Meteor.call('tasks.insert', text, Meteor.user().username);
+        Meteor.call('tasks.insert', text, Meteor.user().username, (err) => {
+            if (err) {
+                instance.error.set(err.details[0].message);
+            }
+        });
 
         // Clear form
         event.target.text.value = '';
