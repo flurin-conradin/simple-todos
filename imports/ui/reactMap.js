@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import GoogleMapReact from 'google-map-react';
 import { Meteor } from 'meteor/meteor';
-import { Stations } from '../api/stations';
+import { Stations } from '../api/stations.coffee';
 import { withTracker } from 'meteor/react-meteor-data';
 
 const Station = ({ name }) => <div className="station" >{name}</div>;
