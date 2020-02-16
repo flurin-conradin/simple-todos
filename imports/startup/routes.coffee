@@ -1,7 +1,7 @@
 import '../ui/layouts/app-body.coffee';
 import '../ui/counter.coffee'
 import '../ui/todos.coffee'
-import '../ui/map.coffee'
+# import '../ui/map.coffee'
 
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import { FlowRouter } from 'meteor/kadira:flow-router';
@@ -43,7 +43,7 @@ FlowRouter.route '/counter',
 #     }
 # });
 
-FlowRouter.route '/map',
-    name: 'Map.show'
-    action: ->
-        BlazeLayout.render 'map'
+# FlowRouter.route '/map',
+#     name: 'Map.show'
+#     action: ->
+#         BlazeLayout.render 'map'

@@ -7,7 +7,11 @@
     "test-debug": "meteor test --inspect --driver-package=meteortesting:mocha --port 3010",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "debug": "meteor run --inspect-brk=9229"
+    "debug": "meteor run --inspect-brk=9229",
+    "wp-watch": "webpack --watch",
+    "wp-start": "webpack-dev-server --open",
+    "wp-build": "webpack",
+    "wp-hot": "webpack-dev-server --hotOnly"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.0",
@@ -18,14 +22,16 @@
     "react-dom": "^16.12.0",
     "simpl-schema": "^1.5.6"
   },
-  "meteor": {
-    "mainModule": {
-      "client": "client/main.coffee",
-      "server": "server/main.coffee"
-    },
-    "testModule": "tests/main.coffee"
-  },
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "coffee-loader": "^0.9.0",
+    "coffeescript": "^2.5.1",
+    "html-loader": "^0.5.5",
+    "spacebars-loader": "^0.1.0",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-meteor-externals": "0.0.5",
+    "webpack-node-externals": "^1.7.2"
   }
 }

@@ -3,3 +3,4 @@ node_modules/
 .meteor
 settings.json
 .idea
+dist/
